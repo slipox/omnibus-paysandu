@@ -26,6 +26,7 @@ sealed interface Screen {
     data class Stop(val code: Int) : Screen
     /** Paradas cerca de un punto (mi ubicación o un lugar buscado). */
     data class Near(val center: Pt?, val title: String) : Screen
+    data object Accessible : Screen
 }
 
 enum class FeedMode { LOADING, LIVE, ERROR }
@@ -86,6 +87,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     // ---------- navegación ----------
     fun go(screen: Screen) = _s.update { it.copy(screen = screen, query = "") }
     fun home() = go(Screen.Home)
+    fun accessible() = go(Screen.Accessible)
 
     fun openLine(line: String) {
         val lt = data.subs.keys.filter { it.startsWith("$line/") }

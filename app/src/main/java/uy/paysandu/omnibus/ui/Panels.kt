@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -40,6 +41,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -71,6 +73,7 @@ fun Panel(state: UiState, vm: MainViewModel, onLocate: () -> Unit, onAlert: (Ale
             is Screen.Line -> LinePanel(state, vm, s)
             is Screen.Stop -> StopPanel(state, vm, s.code, onAlert)
             is Screen.Near -> NearPanel(state, vm, s)
+            Screen.Accessible -> AccessiblePanel(state, vm)
         }
     }
 }
@@ -111,6 +114,9 @@ private fun HomePanel(state: UiState, vm: MainViewModel, onLocate: () -> Unit) {
                     }
                 }
             }
+        }
+        item {
+            TextButton(onClick = { vm.accessible() }) { Text("Modo accesible (voz)") }
         }
         item {
             OutlinedTextField(
@@ -357,5 +363,20 @@ private fun Row2(icon: androidx.compose.ui.graphics.vector.ImageVector, title: S
             Text(title, fontWeight = FontWeight.SemiBold, fontSize = 14.sp)
             Text(sub, fontSize = 12.sp, color = Color.Gray)
         }
+    }
+}
+
+@Composable
+fun AccessiblePanel(state: UiState, vm: MainViewModel) {
+    val ctx = androidx.compose.ui.platform.LocalContext.current
+    val tts = remember { android.speech.tts.TextToSpeech(ctx) { } }
+    DisposableEffect(Unit) { onDispose { tts.stop(); tts.shutdown() } }
+    Column(Modifier.fillMaxWidth().padding(12.dp)) {
+        Text("Modo accesible", fontWeight = FontWeight.Bold, fontSize = 16.sp)
+        Spacer(Modifier.height(8.dp))
+        TextButton(onClick = { tts.speak("Hay ${state.buses.size} omnibus en linea.", android.speech.tts.TextToSpeech.QUEUE_FLUSH, null, "tts1") }) {
+            Text("Hablar estado")
+        }
+        TextButton(onClick = { vm.home() }) { Text("Volver") }
     }
 }

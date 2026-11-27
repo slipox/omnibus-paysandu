@@ -45,3 +45,14 @@ service/ ArrivalAlertService (alerta en primer plano)
 - Horario completo del día por línea.
 - Servir `copay_data.json` desde un endpoint propio para actualizar horarios sin tener que publicar una nueva versión.
 - Tiles: para mucho tráfico, usar un proveedor propio. La política de uso de tile.openstreetmap.org no admite apps de alto volumen.
+
+## Modo accesible (no videntes)
+
+La app esta pensada tambien para personas no videntes.
+
+- Interfaz negra dividida en dos: boton derecho (aceptar) y boton izquierdo (cancelar).
+- Comandos de voz: "Listar", "Linea X", "Ubicacion", "Subir", "Bajar".
+- Uso clasico del lenguaje oral; anuncio por voz (TTS) y escucha por voz (SpeechRecognizer).
+
+## Uso clasico
+- Mapa en vivo, paradas cerca de mi, busqueda, ETA, favoritos y alertas.

@@ -33,3 +33,8 @@ Permitir que personas no videntes usen la app por voz: el sistema habla (TTS) y 
 - Comando "bajar" y parada destino.
 - Vibracion y sonidos de confirmacion.
 - Modo offline de puntos de referencia.
+## Interfaz para no videntes
+- Pantalla negra dividida en dos mitades.
+- Boton derecho: Aceptar (inicia escucha por voz sin preguntas; mientras habla, permite saltar/avanzar).
+- Boton izquierdo: Cancelar (volver/volver atras).
+- Feedback solo por voz y vibracion.

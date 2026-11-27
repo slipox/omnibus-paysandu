@@ -1,0 +1,5 @@
+<resources>
+    <style name="Theme.Omnibus" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:statusBarColor">#7A1420</item>
+    </style>
+</resources>
